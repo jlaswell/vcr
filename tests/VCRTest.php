@@ -5,7 +5,7 @@ use Jlaswell\VCR\VCR;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 
-class RecordingMiddlewareTest extends TestCase
+class VCRTest extends TestCase
 {
     public function testBasicExample(): void
     {

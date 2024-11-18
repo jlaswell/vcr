@@ -39,7 +39,7 @@ phpunit-coverage *args:
 
 test:
     just phpunit
-    just psalm
+    just phpstan-analyse
 
 run *args:
     {{drun-cli}} {{args}}
