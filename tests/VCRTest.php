@@ -27,4 +27,16 @@ class VCRTest extends TestCase
 
         $this->assertEquals(202, $response->getStatusCode());
     }
+
+    public function testAutoExample(): void
+    {
+        $recordCassette = VCR::insertCassette('basic-example');
+        $stack = HandlerStack::create();
+        $stack->push($recordCassette);
+
+        $client = new Client(['handler' => $stack]);
+        $response = $client->post('https://232c-68-50-161-203.ngrok-free.app', ['json' => ['foo' => 'bar']]);
+
+        $this->assertEquals(202, $response->getStatusCode());
+    }
 }
