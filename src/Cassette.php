@@ -37,6 +37,7 @@ class Cassette
             return match ($this->mode) {
                 self::MODE_RECORD => $this->buildRecordHandler($handler, $request, $options),
                 self::MODE_REPLAY => $this->buildReplayHandler($handler, $request, $options),
+                self::MODE_AUTO => $this->buildAutoHandler($handler, $request, $options),
                 default => $handler($request, $options),
             };
         };
@@ -61,5 +62,14 @@ class Cassette
         }
 
         return $handler($request, $options);
+    }
+
+    public function buildAutoHandler(callable $handler, RequestInterface $request, array $options): PromiseInterface
+    {
+        if ($this->storage->has($this->name, $request)) {
+            return $this->buildReplayHandler($handler, $request, $options);
+        }
+
+        return $this->buildRecordHandler($handler, $request, $options);
     }
 }
