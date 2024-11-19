@@ -3,7 +3,7 @@
     "description": "A simple VCR-like HTTP recording and replay library for Guzzle",
     "type": "library",
     "license": "MIT",
-    "version": "v0.1.1",
+    "version": "v0.1.2",
     "require": {
         "php": "^8.2",
         "guzzlehttp/guzzle": "^7.9",

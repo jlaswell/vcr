@@ -50,7 +50,7 @@ class FileStorage implements StorageInterface
     public function save(string $key, RequestInterface $request, ResponseInterface $response): void
     {
         if (!is_dir($this->directory)) {
-            mkdir($this->directory, 0664, true); // @codeCoverageIgnore
+            mkdir($this->directory, 0766, true); // @codeCoverageIgnore
         }
 
         $data = [
