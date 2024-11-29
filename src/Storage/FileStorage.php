@@ -30,6 +30,15 @@ class FileStorage implements StorageInterface
         return file_exists($this->getFilePath($key));
     }
 
+    public function getAll(string $key): ?array
+    {
+        try {
+            return (array) Yaml::parsefile($this->getFilePath($key));
+        } catch (ParseException $e) {
+            return null;
+        }
+    }
+
     public function get(string $key, RequestInterface $request): ?ResponseInterface
     {
         try {
@@ -53,20 +62,44 @@ class FileStorage implements StorageInterface
             mkdir($this->directory, 0766, true); // @codeCoverageIgnore
         }
 
+        $requestId = hash('xxh3', Message::toString($request));
         $data = [
-            'id' => hash('xxh3', Message::toString($request)),
+            'id' => $requestId,
             'request' => array_merge(
                 Message::parseMessage(Message::toString($request)),
-                ['encoding' => $this->encodeMessage($request)],
+                ['encoding' => $this->encodeMessage($request)]
             ),
             'response' => array_merge(
                 Message::parseMessage(Message::toString($response)),
-                ['status' => $response->getStatusCode()],
-                ['encoding' => $this->encodeResponse($response)],
-            ),
+                [
+                    'status' => $response->getStatusCode(),
+                    'encoding' => $this->encodeResponse($response)
+                ]
+            )
         ];
 
-        file_put_contents($this->getFilePath($key), Yaml::dump(['name' => $key, 'data' => [$data]], 8, 2));
+        $existingData = $this->getAll($key);
+        if (null === $existingData) {
+            $yamlData = [
+                'name' => $key,
+                'data' => [$data]
+            ];
+        } else {
+            foreach ($existingData['data'] as $index => $case) {
+                if ($case['id'] === $requestId) {
+                    $existingData['data'][$index] = $data;
+                    $yamlData = $existingData;
+                    break;
+                }
+            }
+
+            if (!isset($yamlData)) {
+                $existingData['data'][] = $data;
+                $yamlData = $existingData;
+            }
+        }
+
+        file_put_contents($this->getFilePath($key), Yaml::dump($yamlData, 8, 2));
     }
 
     function encodeMessage(MessageInterface $message): string
