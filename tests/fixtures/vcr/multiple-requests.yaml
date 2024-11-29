@@ -1,0 +1,32 @@
+name: multiple-requests
+data:
+  -
+    id: ebe2836810a36d37
+    request:
+      start-line: 'GET /test HTTP/1.1'
+      headers:
+        Host:
+          - ''
+      body: ''
+      encoding: eyJib2R5IjoiIiwiaGVhZGVycyI6W10sInByb3RvY29sVmVyc2lvbiI6IjEuMSJ9
+    response:
+      start-line: 'HTTP/1.1 200 OK'
+      headers: {  }
+      body: ''
+      status: 200
+      encoding: eyJzdGF0dXMiOjIwMCwiYm9keSI6IiIsImhlYWRlcnMiOltdLCJwcm90b2NvbFZlcnNpb24iOiIxLjEifQ==
+  -
+    id: 82b3cfe788b5fd3e
+    request:
+      start-line: 'PUT /test HTTP/1.1'
+      headers:
+        Host:
+          - ''
+      body: ''
+      encoding: eyJib2R5IjoiIiwiaGVhZGVycyI6W10sInByb3RvY29sVmVyc2lvbiI6IjEuMSJ9
+    response:
+      start-line: 'HTTP/1.1 202 Accepted'
+      headers: {  }
+      body: ''
+      status: 202
+      encoding: eyJzdGF0dXMiOjIwMiwiYm9keSI6IiIsImhlYWRlcnMiOltdLCJwcm90b2NvbFZlcnNpb24iOiIxLjEifQ==

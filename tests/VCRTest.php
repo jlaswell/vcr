@@ -14,7 +14,7 @@ class VCRTest extends TestCase
         $stack->push($recordCassette);
 
         $client = new Client(['handler' => $stack]);
-        $response = $client->post('https://232c-68-50-161-203.ngrok-free.app', ['json' => ['foo' => 'bar']]);
+        $response = $client->post('https://8ae2-104-0-186-153.ngrok-free.app', ['json' => ['foo' => 'bar']]);
 
         $this->assertEquals(202, $response->getStatusCode());
 
@@ -23,7 +23,7 @@ class VCRTest extends TestCase
         $stack->push($replayCassette);
 
         $client = new Client(['handler' => $stack]);
-        $response = $client->post('https://232c-68-50-161-203.ngrok-free.app', ['json' => ['foo' => 'bar']]);
+        $response = $client->post('https://8ae2-104-0-186-153.ngrok-free.app', ['json' => ['foo' => 'bar']]);
 
         $this->assertEquals(202, $response->getStatusCode());
     }
@@ -35,7 +35,7 @@ class VCRTest extends TestCase
         $stack->push($recordCassette);
 
         $client = new Client(['handler' => $stack]);
-        $response = $client->post('https://232c-68-50-161-203.ngrok-free.app', ['json' => ['foo' => 'bar']]);
+        $response = $client->post('https://8ae2-104-0-186-153.ngrok-free.app', ['json' => ['foo' => 'bar']]);
 
         $this->assertEquals(202, $response->getStatusCode());
     }
