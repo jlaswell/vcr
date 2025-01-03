@@ -12,6 +12,10 @@ _default:
 composer *args:
     {{drun-base}} composer {{args}}
 
+# Run PHP commands
+php *args:
+    {{drun-base}} {{args}}
+
 # Run phpstan commands
 phpstan *args:
     {{drun-base}} ./vendor/bin/phpstan {{args}}
